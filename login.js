@@ -43,7 +43,7 @@ form.addEventListener('submit', async (event) => {
         try {
             data = await response.json();
         } catch {
-            // backend may return empty body or non-JSON
+
         }
 
         if (response.ok) {
@@ -52,8 +52,7 @@ form.addEventListener('submit', async (event) => {
                 const store = rememberInput.checked ? localStorage : sessionStorage;
                 store.setItem('authToken', data.token);
             }
-            // window.location.href = '/dashboard.html';
-        } else {
+            
             const msg = data?.error || data?.message || `Login failed (${response.status}).`;
             setStatus(msg, 'error');
         }
