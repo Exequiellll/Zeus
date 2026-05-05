@@ -1,5 +1,4 @@
-// Point this at your coworker's backend endpoint.
-const LOGIN_ENDPOINT = 'http://localhost:3000/api/login';
+import { supabase } from './supabase-config.js';
 
 const form = document.getElementById('loginForm');
 const usernameInput = document.getElementById('username');
@@ -17,10 +16,10 @@ function setStatus(message, kind) {
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const username = usernameInput.value.trim();
+    const identifier = usernameInput.value.trim();
     const password = passwordInput.value;
 
-    if (!username || !password) {
+    if (!identifier || !password) {
         setStatus('Please enter both username and password.', 'error');
         return;
     }
@@ -29,34 +28,38 @@ form.addEventListener('submit', async (event) => {
     setStatus('Signing in...', null);
 
     try {
-        const response = await fetch(LOGIN_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                username,
-                password,
-                remember: rememberInput.checked,
-            }),
-        });
+        console.log('[login] querying supabase for', identifier);
+        const { data, error, status: httpStatus } = await supabase
+            .from('users')
+            .select('*')
+            .or(`username.eq.${identifier},email.eq.${identifier}`)
+            .maybeSingle();
 
-        let data = null;
-        try {
-            data = await response.json();
-        } catch {
+        console.log('[login] supabase response', { data, error, httpStatus });
 
+        if (error) {
+            setStatus(`Login error: ${error.message}`, 'error');
+            return;
         }
 
-        if (response.ok) {
-            setStatus(data?.message || 'Logged in successfully.', 'success');
-            if (data?.token) {
-                const store = rememberInput.checked ? localStorage : sessionStorage;
-                store.setItem('authToken', data.token);
-            }
-        } else {
-            const msg = data?.error || `Login failed (${response.status}).`;
-            setStatus(msg, 'error');
+        if (!data) {
+            setStatus('No matching user found. (If you just signed up, check Supabase RLS policies — the SELECT may be blocked.)', 'error');
+            return;
         }
+
+        if (data.password !== password) {
+            setStatus('Wrong password.', 'error');
+            return;
+        }
+
+        setStatus('Logged in successfully.', 'success');
+
+        const token = 'session-' + data.id + '-' + Date.now();
+        const store = rememberInput.checked ? localStorage : sessionStorage;
+        store.setItem('authToken', token);
+        store.setItem('authUser', JSON.stringify({ id: data.id, username: data.username, email: data.email }));
     } catch (err) {
+        console.error('[login] exception', err);
         setStatus(`Network error: ${err.message}`, 'error');
     } finally {
         submitBtn.disabled = false;

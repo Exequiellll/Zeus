@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .signup-card {
+            max-width: 420px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+        .signup-card label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        .signup-card input {
+            width: 100%;
+            padding: 0.55rem;
+            margin-top: 0.25rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .signup-card button {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        .status { margin-top: 1rem; min-height: 1.2em; }
+        .status.error { color: #c0392b; }
+        .status.success { color: #27ae60; }
+        .field-error { color: #c0392b; font-size: 0.85rem; margin-top: 0.25rem; }
+        .login-link { display: block; margin-top: 1rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <main class="signup-card">
+        <h1>Create account</h1>
+
+        <form id="signupForm" novalidate>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" autocomplete="username" required minlength="3" maxlength="30">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="new-password" required minlength="6">
+
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required>
+
+            <button type="submit" id="submitBtn">Sign up</button>
+        </form>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <a href="login.html" class="login-link">Already have an account? Log in</a>
+    </main>
+
+    <script type="module" src="signup.js"></script>
+</body>
+</html>

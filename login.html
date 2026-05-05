@@ -4,7 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-card {
+            max-width: 420px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+        .login-card label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        .login-card input[type="text"],
+        .login-card input[type="password"] {
+            width: 100%;
+            padding: 0.55rem;
+            margin-top: 0.25rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .login-card .checkbox {
+            margin-top: 1rem;
+            font-weight: normal;
+        }
+        .login-card button {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        .status { margin-top: 1rem; min-height: 1.2em; }
+        .status.error { color: #c0392b; }
+        .status.success { color: #27ae60; }
+        .signup-link { display: block; margin-top: 1rem; text-align: center; }
+    </style>
 </head>
 <body>
     <main class="login-card">
@@ -26,8 +63,10 @@
         </form>
 
         <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <a href="signup.html" class="signup-link">Don't have an account? Sign up</a>
     </main>
 
-    <script src="login.js"></script>
+    <script type="module" src="login.js"></script>
 </body>
 </html>
