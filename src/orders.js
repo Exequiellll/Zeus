@@ -39,18 +39,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             card.innerHTML =
                 '<div class="d-flex justify-content-between align-items-start mb-3">' +
-                '<div><h6 class="fw-bold mb-1">PO #' + order.poid + '</h6>' +
-                '<small class="text-muted">' + created + '</small></div>' +
+                '<div><h6 class="fw-bold text-white mb-1">PO #' + order.poid + '</h6>' +
+                '<small class="text-light opacity-75">' + created + '</small></div>' +
                 '<span class="order-badge confirmed"><i class="bi bi-check-circle me-1"></i>Confirmed</span></div>' +
                 '<div class="row">' +
-                '<div class="col-sm-4"><small class="text-muted d-block">Product</small>' +
-                '<span class="fw-semibold">' + (order.product_name || 'Product #' + order.po_product) + (order.si_quantity ? ' (x' + order.si_quantity + ')' : '') + '</span></div>' +
-                '<div class="col-sm-3"><small class="text-muted d-block">Price</small>' +
+                '<div class="col-sm-4"><small class="text-light opacity-75 d-block">Product</small>' +
+                '<span class="fw-semibold text-white">' + (order.product_name || 'Product #' + order.po_product) + (order.si_quantity ? ' (x' + order.si_quantity + ')' : '') + '</span></div>' +
+                '<div class="col-sm-3"><small class="text-light opacity-75 d-block">Price</small>' +
                 '<span class="fw-semibold text-warning">' + formatCurrency(order.product_price || 0) + '</span></div>' +
-                '<div class="col-sm-3"><small class="text-muted d-block">Sales ID</small>' +
-                '<span class="fw-semibold">#' + (order.sales_id || 'N/A') + '</span></div>' +
-                '<div class="col-sm-2"><small class="text-muted d-block">Time</small>' +
-                '<span class="fw-semibold">' + date + '</span></div></div>';
+                '<div class="col-sm-3"><small class="text-light opacity-75 d-block">Sales ID</small>' +
+                '<span class="fw-semibold text-white">#' + (order.sales_id || 'N/A') + '</span></div>' +
+                '<div class="col-sm-2"><small class="text-light opacity-75 d-block">Time</small>' +
+                '<span class="fw-semibold text-white">' + date + '</span></div></div>';
             container.appendChild(card);
         });
 
