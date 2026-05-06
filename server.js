@@ -324,6 +324,8 @@ const server = http.createServer(async (req, res) => {
                 purchased_by: o.purchased_by,
                 po_product: o.po_product,
                 sales_id: o.sales_id,
+                si_quantity: o.si_quantity,
+                si_total: o.si_total,
                 product_name: o.products ? o.products.product_name : null,
                 product_price: o.products ? o.products.product_price : null
             }));
